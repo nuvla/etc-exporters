@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
-	nuvla "github.com/nuvla/api-client-go"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/exporter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -23,18 +22,17 @@ var (
 	typeStr = component.MustNewType("nuvlaedge_otc_exporter")
 )
 
-type NuvlaEdgeOTCExporter struct {
+type NuvlaElasticSearchExporter struct {
 	cfg      *Config
 	esClient *elasticsearch.Client
-	nuvlaApi *nuvla.NuvlaClient
 	settings component.TelemetrySettings
 }
 
-func newNuvlaEdgeOTCExporter(
+func newNuvlaOTCExporter(
 	cfg *Config,
 	set *exporter.CreateSettings,
-) (*NuvlaEdgeOTCExporter, error) {
-	return &NuvlaEdgeOTCExporter{
+) (*NuvlaElasticSearchExporter, error) {
+	return &NuvlaElasticSearchExporter{
 		cfg:      cfg,
 		esClient: nil,
 		settings: set.TelemetrySettings,
@@ -55,7 +53,7 @@ func convertToESConfig(cfg *ElasticSearchConfig, logger *zap.Logger) (elasticsea
 	return esConfig, nil
 }
 
-func (e *NuvlaEdgeOTCExporter) Start(_ context.Context, _ component.Host) error {
+func (e *NuvlaElasticSearchExporter) Start(_ context.Context, _ component.Host) error {
 	if e.cfg.ElasticsearchConfig.Enabled {
 		err := e.StartESClient()
 		if err != nil {
@@ -65,7 +63,7 @@ func (e *NuvlaEdgeOTCExporter) Start(_ context.Context, _ component.Host) error 
 	return nil
 }
 
-func (e *NuvlaEdgeOTCExporter) StartESClient() error {
+func (e *NuvlaElasticSearchExporter) StartESClient() error {
 	var err error
 	var esConfig elasticsearch.Config
 	esConfig, err = convertToESConfig(e.cfg.ElasticsearchConfig, e.settings.Logger)
@@ -81,7 +79,7 @@ func (e *NuvlaEdgeOTCExporter) StartESClient() error {
 	return nil
 }
 
-func (e *NuvlaEdgeOTCExporter) checkIndexTemplatesInElasticSearch() error {
+func (e *NuvlaElasticSearchExporter) checkIndexTemplatesInElasticSearch() error {
 	req := esapi.IndicesGetIndexTemplateRequest{
 		Name: e.cfg.ElasticsearchConfig.IndexPrefix + "-*",
 	}
@@ -125,7 +123,7 @@ func (e *NuvlaEdgeOTCExporter) checkIndexTemplatesInElasticSearch() error {
 	return nil
 }
 
-func (e *NuvlaEdgeOTCExporter) createTSDSTemplate(indexPattern *string) map[string]interface{} {
+func (e *NuvlaElasticSearchExporter) createTSDSTemplate(indexPattern *string) map[string]interface{} {
 	template := map[string]interface{}{
 		"index_patterns": []string{*indexPattern},
 		"data_stream":    map[string]interface{}{},
@@ -177,7 +175,7 @@ func (e *NuvlaEdgeOTCExporter) createTSDSTemplate(indexPattern *string) map[stri
 	return template
 }
 
-func (e *NuvlaEdgeOTCExporter) createNewTSDS(timeSeries string) error {
+func (e *NuvlaElasticSearchExporter) createNewTSDS(timeSeries string) error {
 	templateName := fmt.Sprintf("%s-%s-template", e.cfg.ElasticsearchConfig.IndexPrefix, timeSeries)
 	if _, ok := templatesPresent[templateName]; !ok {
 		indexPattern := fmt.Sprintf("%s-%s*", e.cfg.ElasticsearchConfig.IndexPrefix, timeSeries)
@@ -218,7 +216,7 @@ func (e *NuvlaEdgeOTCExporter) createNewTSDS(timeSeries string) error {
 	return nil
 }
 
-func (e *NuvlaEdgeOTCExporter) readElasticSearchResponse(res *esapi.Response) (string, bool) {
+func (e *NuvlaElasticSearchExporter) readElasticSearchResponse(res *esapi.Response) (string, bool) {
 	bodyBytes, errRes := io.ReadAll(res.Body)
 	if errRes != nil {
 		e.settings.Logger.Error("Error reading the response body: ", zap.Error(errRes))
@@ -233,7 +231,7 @@ func (e *NuvlaEdgeOTCExporter) readElasticSearchResponse(res *esapi.Response) (s
 	return bodyString, false
 }
 
-func (e *NuvlaEdgeOTCExporter) ConsumeMetrics(_ context.Context, pm pmetric.Metrics) error {
+func (e *NuvlaElasticSearchExporter) ConsumeMetrics(_ context.Context, pm pmetric.Metrics) error {
 	rms := pm.ResourceMetrics()
 
 	for i := 0; i < rms.Len(); i++ {
@@ -269,7 +267,7 @@ func (e *NuvlaEdgeOTCExporter) ConsumeMetrics(_ context.Context, pm pmetric.Metr
 	return nil
 }
 
-func (e *NuvlaEdgeOTCExporter) addMetricsInES(serviceName *string, metricMap *[]map[string]interface{}) error {
+func (e *NuvlaElasticSearchExporter) addMetricsInES(serviceName *string, metricMap *[]map[string]interface{}) error {
 	err := e.createNewTSDS(*serviceName)
 	if err != nil {
 		e.settings.Logger.Error("Error creating the TSDS: ", zap.Error(err))
@@ -287,7 +285,7 @@ func (e *NuvlaEdgeOTCExporter) addMetricsInES(serviceName *string, metricMap *[]
 	return nil
 }
 
-func (e *NuvlaEdgeOTCExporter) addDocsInTSDS(timeSeries *string,
+func (e *NuvlaElasticSearchExporter) addDocsInTSDS(timeSeries *string,
 	metricMapDetails *[]map[string]interface{}) error {
 	var buf bytes.Buffer
 
@@ -333,7 +331,7 @@ func (e *NuvlaEdgeOTCExporter) addDocsInTSDS(timeSeries *string,
 	return nil
 }
 
-func (e *NuvlaEdgeOTCExporter) updateMetric(serviceName *string, metric *pmetric.Metric,
+func (e *NuvlaElasticSearchExporter) updateMetric(serviceName *string, metric *pmetric.Metric,
 	metricMap *[]map[string]interface{}, deploymentuuid *string) {
 
 	var dp pmetric.NumberDataPointSlice

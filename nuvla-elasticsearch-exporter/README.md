@@ -1,4 +1,4 @@
-# nuvlaedge-otc-exporter
+# nuvla-elasticsearch-exporter
 An OTC exporter which would convert data into appropriate format and send to elasticsearch endpoint
 
 For elasticsearch, the exporter would create a timeseries resource (<index_prefix>-<application_name>) if not present.
@@ -15,7 +15,7 @@ application. We should provide in the configuration the list of metrics along wi
   - insecure: Skip SSL verification (default: false)
   - ca_file: CA certificate file for verifying the server certificate (default: "")
   - index_prefix: Prefix for the index patterns and templates used for timeseries resource
-                   (default: "nuvlaedge-opentelemetry-")
+                   (default: "nuvla-opentelemetry-")
   - MetricsTobeExported: List of metrics to be exported to elastic search 
     Format : <metricName>,<metricType>,<isDimension>
        Dimension metrics along with the timestamp would define the unique document in elastic search
