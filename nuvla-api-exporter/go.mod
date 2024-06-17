@@ -1,9 +1,8 @@
-module github.com/amitbhanja/nuvlaedge-otc-exporter
+module github.com/nuvla/otc-exporters/nuvla-api-exporter
 
 go 1.22.3
 
 require (
-	github.com/elastic/go-elasticsearch/v8 v8.13.1
 	github.com/nuvla/api-client-go v0.7.7-0.20240614100931-3865f491f55a
 	go.opentelemetry.io/collector/component v0.102.1
 	go.opentelemetry.io/collector/config/configretry v0.102.1
