@@ -5,8 +5,8 @@ module go.opentelemetry.io/collector/cmd/builder
 go 1.22.3
 
 require (
-	github.com/amitbhanja/nuvlaedge-otc-exporter v0.0.28
-	github.com/amitbhanja/nuvlaedge-otc-receiver v0.0.1
+	github.com/nuvla/otc-exporters/nuvla-api-exporter v0.0.0-20240617114246-3c8aab8c20aa
+	github.com/nuvla/otc-exporters/nuvla-elasticsearch-exporter v0.0.0-20240617113549-da8ff9a8e96a
 	go.opentelemetry.io/collector/component v0.102.1
 	go.opentelemetry.io/collector/confmap v0.102.1
 	go.opentelemetry.io/collector/confmap/converter/expandconverter v0.101.0
@@ -25,6 +25,7 @@ require (
 	go.opentelemetry.io/collector/processor v0.101.0
 	go.opentelemetry.io/collector/processor/batchprocessor v0.101.0
 	go.opentelemetry.io/collector/receiver v0.102.1
+	go.opentelemetry.io/collector/receiver/otlpreceiver v0.102.1
 	golang.org/x/sys v0.21.0
 )
 

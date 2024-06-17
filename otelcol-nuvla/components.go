@@ -3,7 +3,8 @@
 package main
 
 import (
-	nuvlaedge_otc_exporter "github.com/amitbhanja/nuvlaedge-otc-exporter"
+	nuvla_api_exporter "github.com/nuvla/otc-exporters/nuvla-api-exporter"
+	nuvla_elasticsearch_exporter "github.com/nuvla/otc-exporters/nuvla-elasticsearch-exporter"
 	"go.opentelemetry.io/collector/connector"
 	"go.opentelemetry.io/collector/exporter"
 	"go.opentelemetry.io/collector/extension"
@@ -14,7 +15,7 @@ import (
 	_ "go.opentelemetry.io/collector/exporter/otlpexporter"
 	_ "go.opentelemetry.io/collector/exporter/otlphttpexporter"
 	batchprocessor "go.opentelemetry.io/collector/processor/batchprocessor"
-	nuvledge_otc_receiver "github.com/amitbhanja/nuvlaedge-otc-receiver"
+	otlpreceiver "go.opentelemetry.io/collector/receiver/otlpreceiver"
 )
 
 func components() (otelcol.Factories, error) {
@@ -28,7 +29,7 @@ func components() (otelcol.Factories, error) {
 	}
 
 	factories.Receivers, err = receiver.MakeFactoryMap(
-		nuvledge_otc_receiver.NewFactory(),
+		otlpreceiver.NewFactory(),
 	)
 	if err != nil {
 		return otelcol.Factories{}, err
@@ -36,7 +37,8 @@ func components() (otelcol.Factories, error) {
 
 	factories.Exporters, err = exporter.MakeFactoryMap(
 		debugexporter.NewFactory(),
-		nuvlaedge_otc_exporter.NewFactory(),
+		nuvla_api_exporter.NewFactory(),
+		nuvla_elasticsearch_exporter.NewFactory(),
 	)
 	if err != nil {
 		return otelcol.Factories{}, err

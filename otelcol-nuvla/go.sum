@@ -1,11 +1,5 @@
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
-github.com/amitbhanja/nuvlaedge-otc-exporter v0.0.27 h1:9ioN2c/OSNuiBtnoESQCBop4wUlGoOeasP/BpU6zlpg=
-github.com/amitbhanja/nuvlaedge-otc-exporter v0.0.27/go.mod h1:pKkMgm/rjeN+74zrIIKOVCtk9d7dW0pE4TWJ0U5RAGg=
-github.com/amitbhanja/nuvlaedge-otc-exporter v0.0.28 h1:ZfTpWV88D8D53z6DV9Wur/DB5Nzac5Y7YQRivVyeKeU=
-github.com/amitbhanja/nuvlaedge-otc-exporter v0.0.28/go.mod h1:pKkMgm/rjeN+74zrIIKOVCtk9d7dW0pE4TWJ0U5RAGg=
-github.com/amitbhanja/nuvlaedge-otc-receiver v0.0.1 h1:iuqA2yBqcN80bvDd8AKWca3dBh8u5GojI5sGQDbumiw=
-github.com/amitbhanja/nuvlaedge-otc-receiver v0.0.1/go.mod h1:TGVIyUBmM3f7GRz8ynIdt9QqgaCtdZ1PhiMtNOWQa6s=
 github.com/beorn7/perks v1.0.1 h1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=
 github.com/beorn7/perks v1.0.1/go.mod h1:G2ZrVWU2WbWT9wwq4/hrbKbnv/1ERSJQ0ibhJ6rlkpw=
 github.com/cenkalti/backoff/v4 v4.3.0 h1:MyRJ/UdXutAwSAT+s3wNd7MfTIcy71VQueUuFK343L8=
@@ -109,6 +103,10 @@ github.com/mostynb/go-grpc-compression v1.2.3 h1:42/BKWMy0KEJGSdWvzqIyOZ95YcR9mL
 github.com/mostynb/go-grpc-compression v1.2.3/go.mod h1:AghIxF3P57umzqM9yz795+y1Vjs47Km/Y2FE6ouQ7Lg=
 github.com/nuvla/api-client-go v0.7.7-0.20240614100931-3865f491f55a h1:GnkIJ7FjUM4GXCSt4oBpd43HdV886aH2F5zWasdsxrg=
 github.com/nuvla/api-client-go v0.7.7-0.20240614100931-3865f491f55a/go.mod h1:AksHmBZPLbbLZm7B4ZW/rRxUF+aAxaOozXFSsaLtGnI=
+github.com/nuvla/otc-exporters/nuvla-api-exporter v0.0.0-20240617114246-3c8aab8c20aa h1:aAXtwVxSE4UcSFkBCp6dhqh38x3oEUPrVz4rYmgCVAA=
+github.com/nuvla/otc-exporters/nuvla-api-exporter v0.0.0-20240617114246-3c8aab8c20aa/go.mod h1:SIvxl541Ch7yo6y5We6BMrKRN42CArjMt0sJ+w0jKQE=
+github.com/nuvla/otc-exporters/nuvla-elasticsearch-exporter v0.0.0-20240617113549-da8ff9a8e96a h1:2De4Xj/GRWelfg9S6Q8OhIwT/PtowCUFuhyV0x+iaLs=
+github.com/nuvla/otc-exporters/nuvla-elasticsearch-exporter v0.0.0-20240617113549-da8ff9a8e96a/go.mod h1:FkrogM3TqBUGAEOD8bzMoFFB/D14FhiFHEBwy9xXrNw=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/power-devops/perfstat v0.0.0-20210106213030-5aafc221ea8c h1:ncq/mPwQF4JjgDlrVEn3C11VoGHZN7m8qihwgMEtzYw=
@@ -231,6 +229,8 @@ go.opentelemetry.io/collector/processor/batchprocessor v0.101.0 h1:/hSyISiVWgt6m
 go.opentelemetry.io/collector/processor/batchprocessor v0.101.0/go.mod h1:etSi9dCLw0tkiu94msC0kADBs7LpBiZqXo3koMORMpI=
 go.opentelemetry.io/collector/receiver v0.102.1 h1:353t4U3o0RdU007JcQ4sRRzl72GHCJZwXDr8cCOcEbI=
 go.opentelemetry.io/collector/receiver v0.102.1/go.mod h1:pYjMzUkvUlxJ8xt+VbI1to8HMtVlv8AW/K/2GQQOTB0=
+go.opentelemetry.io/collector/receiver/otlpreceiver v0.102.1 h1:65/8lkVmOu6gwBw99W+QUQBeDC2qVTwlaiqy7/SpauY=
+go.opentelemetry.io/collector/receiver/otlpreceiver v0.102.1/go.mod h1:0hmxfFSSqKJjRGvgYjp/XvptbAgLhLguwNgJqMp7zd0=
 go.opentelemetry.io/collector/semconv v0.101.0 h1:tOe9iTe9dDCnvz/bqgfNRr4w80kXG8505tQJ5h5v08Q=
 go.opentelemetry.io/collector/semconv v0.101.0/go.mod h1:8ElcRZ8Cdw5JnvhTOQOdYizkJaQ10Z2fS+R6djOnj6A=
 go.opentelemetry.io/collector/service v0.101.0 h1:My2NrH25WYmJ6vMWwT3csglyiTkf0XP3nPgj0mX1yFw=
