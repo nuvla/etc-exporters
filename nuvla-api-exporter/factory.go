@@ -14,10 +14,8 @@ import (
 
 func createDefaultConfig() component.Config {
 	return &Config{
-		NuvlaApiConfig: &NuvlaApiConfig{
-			Enabled:  false,
-			Insecure: true,
-		},
+		Enabled:     false,
+		Insecure:    true,
 		QueueConfig: exporterhelper.NewDefaultQueueSettings(),
 		RetryConfig: configretry.NewDefaultBackOffConfig(),
 	}
@@ -38,7 +36,7 @@ func createMetricsExporter(
 ) (exporter.Metrics, error) {
 	fmt.Printf("createMetricsExporter being called \n")
 	oCfg := cfg.(*Config)
-	_, err := url.Parse(oCfg.NuvlaApiConfig.Endpoint)
+	_, err := url.Parse(oCfg.Endpoint)
 	if err != nil {
 		return nil, errors.New("endpoint must be a valid URL")
 	}

@@ -14,13 +14,11 @@ import (
 
 func createDefaultConfig() component.Config {
 	return &Config{
-		ElasticsearchConfig: &ElasticSearchConfig{
-			Enabled:     false,
-			Endpoint:    "http://localhost:9200",
-			Insecure:    true,
-			CaFile:      "",
-			IndexPrefix: "nuvlaedge-opentelemetry-",
-		},
+		Enabled:     false,
+		Endpoint:    "http://localhost:9200",
+		Insecure:    true,
+		CaFile:      "",
+		IndexPrefix: "nuvlaedge-opentelemetry-",
 		QueueConfig: exporterhelper.NewDefaultQueueSettings(),
 		RetryConfig: configretry.NewDefaultBackOffConfig(),
 	}
@@ -41,7 +39,7 @@ func createMetricsExporter(
 ) (exporter.Metrics, error) {
 	fmt.Printf("createMetricsExporter being called \n")
 	oCfg := cfg.(*Config)
-	_, err := url.Parse(oCfg.ElasticsearchConfig.Endpoint)
+	_, err := url.Parse(oCfg.Endpoint)
 	if err != nil {
 		return nil, errors.New("endpoint must be a valid URL")
 	}

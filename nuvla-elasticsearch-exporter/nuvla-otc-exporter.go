@@ -39,7 +39,7 @@ func newNuvlaOTCExporter(
 	}, nil
 }
 
-func convertToESConfig(cfg *ElasticSearchConfig, logger *zap.Logger) (elasticsearch.Config, error) {
+func convertToESConfig(cfg *Config, logger *zap.Logger) (elasticsearch.Config, error) {
 	esConfig := elasticsearch.Config{
 		Addresses: []string{cfg.Endpoint},
 	}
@@ -54,7 +54,7 @@ func convertToESConfig(cfg *ElasticSearchConfig, logger *zap.Logger) (elasticsea
 }
 
 func (e *NuvlaElasticSearchExporter) Start(_ context.Context, _ component.Host) error {
-	if e.cfg.ElasticsearchConfig.Enabled {
+	if e.cfg.Enabled {
 		err := e.StartESClient()
 		if err != nil {
 			return err
@@ -66,7 +66,7 @@ func (e *NuvlaElasticSearchExporter) Start(_ context.Context, _ component.Host) 
 func (e *NuvlaElasticSearchExporter) StartESClient() error {
 	var err error
 	var esConfig elasticsearch.Config
-	esConfig, err = convertToESConfig(e.cfg.ElasticsearchConfig, e.settings.Logger)
+	esConfig, err = convertToESConfig(e.cfg, e.settings.Logger)
 	e.esClient, err = elasticsearch.NewClient(esConfig)
 	if err != nil {
 		e.settings.Logger.Error("Error creating ElasticSearch client: ", zap.Error(err))
@@ -81,7 +81,7 @@ func (e *NuvlaElasticSearchExporter) StartESClient() error {
 
 func (e *NuvlaElasticSearchExporter) checkIndexTemplatesInElasticSearch() error {
 	req := esapi.IndicesGetIndexTemplateRequest{
-		Name: e.cfg.ElasticsearchConfig.IndexPrefix + "-*",
+		Name: e.cfg.IndexPrefix + "-*",
 	}
 	res, err := req.Do(context.Background(), e.esClient)
 	if err != nil {
@@ -145,7 +145,7 @@ func (e *NuvlaElasticSearchExporter) createTSDSTemplate(indexPattern *string) ma
 		},
 	}
 
-	for _, metricExport := range e.cfg.ElasticsearchConfig.MetricsTobeExported {
+	for _, metricExport := range e.cfg.MetricsTobeExported {
 		keys := strings.Split(metricExport, ",")
 		if len(keys) != 3 {
 			e.settings.Logger.Error("Require three parameters <metric_name>,<metric_type>,<is_dimension>"+
@@ -176,9 +176,9 @@ func (e *NuvlaElasticSearchExporter) createTSDSTemplate(indexPattern *string) ma
 }
 
 func (e *NuvlaElasticSearchExporter) createNewTSDS(timeSeries string) error {
-	templateName := fmt.Sprintf("%s-%s-template", e.cfg.ElasticsearchConfig.IndexPrefix, timeSeries)
+	templateName := fmt.Sprintf("%s-%s-template", e.cfg.IndexPrefix, timeSeries)
 	if _, ok := templatesPresent[templateName]; !ok {
-		indexPattern := fmt.Sprintf("%s-%s*", e.cfg.ElasticsearchConfig.IndexPrefix, timeSeries)
+		indexPattern := fmt.Sprintf("%s-%s*", e.cfg.IndexPrefix, timeSeries)
 		template := e.createTSDSTemplate(&indexPattern)
 
 		templateJSON, err := json.Marshal(template)
@@ -255,7 +255,7 @@ func (e *NuvlaElasticSearchExporter) ConsumeMetrics(_ context.Context, pm pmetri
 				currMetric := ms.At(k)
 				e.updateMetric(&serviceName, &currMetric, &metricMap, &uuid)
 			}
-			if e.cfg.ElasticsearchConfig.Enabled {
+			if e.cfg.Enabled {
 				err := e.addMetricsInES(&serviceName, &metricMap)
 				if err != nil {
 					e.settings.Logger.Error("Error adding metrics in ES: ", zap.Error(err))
@@ -274,7 +274,7 @@ func (e *NuvlaElasticSearchExporter) addMetricsInES(serviceName *string, metricM
 		return err
 	}
 
-	indexName := fmt.Sprintf("%s-%s", e.cfg.ElasticsearchConfig.IndexPrefix, *serviceName)
+	indexName := fmt.Sprintf("%s-%s", e.cfg.IndexPrefix, *serviceName)
 	e.settings.Logger.Info("Adding documents in TSDS ", zap.String("indexName", indexName), zap.Any("metricMap", metricMap))
 
 	err = e.addDocsInTSDS(&indexName, metricMap)

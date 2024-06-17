@@ -37,7 +37,7 @@ func newNuvlaOTCExporter(
 }
 
 func (e *NuvlaAPIExporter) Start(_ context.Context, _ component.Host) error {
-	if e.cfg.NuvlaApiConfig.Enabled {
+	if e.cfg.Enabled {
 		err := e.StartNuvlaApiClient()
 		if err != nil {
 			return err
@@ -48,9 +48,9 @@ func (e *NuvlaAPIExporter) Start(_ context.Context, _ component.Host) error {
 
 func (e *NuvlaAPIExporter) StartNuvlaApiClient() error {
 
-	e.nuvlaApi = nuvla.NewNuvlaClientFromOpts(nil, nuvla.WithEndpoint(e.cfg.NuvlaApiConfig.Endpoint),
-		nuvla.WithInsecureSession(e.cfg.NuvlaApiConfig.Insecure))
-	err := e.nuvlaApi.LoginApiKeys(e.cfg.NuvlaApiConfig.ApiKey, e.cfg.NuvlaApiConfig.ApiSecret)
+	e.nuvlaApi = nuvla.NewNuvlaClientFromOpts(nil, nuvla.WithEndpoint(e.cfg.Endpoint),
+		nuvla.WithInsecureSession(e.cfg.Insecure))
+	err := e.nuvlaApi.LoginApiKeys(e.cfg.ApiKey, e.cfg.ApiSecret)
 
 	if err != nil {
 		e.settings.Logger.Error("Error logging in with api keys: ", zap.Error(err))
@@ -83,7 +83,7 @@ func (e *NuvlaAPIExporter) ConsumeMetrics(_ context.Context, pm pmetric.Metrics)
 				currMetric := ms.At(k)
 				e.updateMetric(&serviceName, &currMetric, &metricMap, &uuid)
 			}
-			if e.cfg.NuvlaApiConfig.Enabled {
+			if e.cfg.Enabled {
 				err := e.sendMetricsToNuvla(&metricMap)
 				if err != nil {
 					e.settings.Logger.Error("Error sending metrics to Nuvla: ", zap.Error(err))
@@ -98,7 +98,7 @@ func (e *NuvlaAPIExporter) ConsumeMetrics(_ context.Context, pm pmetric.Metrics)
 func (e *NuvlaAPIExporter) sendMetricsToNuvla(metricMap *[]map[string]interface{}) error {
 	e.settings.Logger.Info("Sending metrics to Nuvla: ", zap.Any("metricMap", metricMap))
 
-	res, err := e.nuvlaApi.BulkOperation(e.cfg.NuvlaApiConfig.ResourceId, "bulk-insert", *metricMap)
+	res, err := e.nuvlaApi.BulkOperation(e.cfg.ResourceId, "bulk-insert", *metricMap)
 	if err != nil {
 		e.settings.Logger.Error("Error in operation bulk insert: ", zap.Error(err))
 		return err
