@@ -1,4 +1,4 @@
-package nuvlaedge_otc_exporter
+package nuvla_elasticsearch_exporter
 
 import (
 	"bytes"
@@ -19,7 +19,7 @@ import (
 )
 
 var (
-	typeStr = component.MustNewType("nuvlaedge_otc_exporter")
+	typeStr = component.MustNewType("nuvla_elasticsearch_exporter")
 )
 
 type NuvlaElasticSearchExporter struct {

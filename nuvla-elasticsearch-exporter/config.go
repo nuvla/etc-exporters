@@ -1,4 +1,4 @@
-package nuvlaedge_otc_exporter
+package nuvla_elasticsearch_exporter
 
 import (
 	"errors"

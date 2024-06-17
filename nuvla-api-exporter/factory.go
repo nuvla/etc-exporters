@@ -1,4 +1,4 @@
-package nuvlaedge_otc_exporter
+package nuvla_api_exporter
 
 import (
 	"context"

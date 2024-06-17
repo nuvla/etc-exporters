@@ -1,4 +1,4 @@
-package nuvlaedge_otc_exporter
+package nuvla_api_exporter
 
 import (
 	"context"
@@ -16,7 +16,7 @@ import (
 )
 
 var (
-	typeStr = component.MustNewType("nuvlaedge_otc_exporter")
+	typeStr = component.MustNewType("nuvla_api_exporter")
 )
 
 type NuvlaAPIExporter struct {
