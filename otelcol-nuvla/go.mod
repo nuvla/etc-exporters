@@ -5,8 +5,8 @@ module go.opentelemetry.io/collector/cmd/builder
 go 1.22.3
 
 require (
-	github.com/nuvla/otc-exporters/nuvla-api-exporter v0.0.0-20240617114246-3c8aab8c20aa
-	github.com/nuvla/otc-exporters/nuvla-elasticsearch-exporter v0.0.0-20240617113549-da8ff9a8e96a
+	github.com/nuvla/otc-exporters/nuvla-api-exporter v0.0.0-20240617173048-e93878f24c2b
+	github.com/nuvla/otc-exporters/nuvla-elasticsearch-exporter v0.0.0-20240617173048-e93878f24c2b
 	go.opentelemetry.io/collector/component v0.102.1
 	go.opentelemetry.io/collector/confmap v0.102.1
 	go.opentelemetry.io/collector/confmap/converter/expandconverter v0.101.0
@@ -118,7 +118,7 @@ require (
 	golang.org/x/text v0.16.0 // indirect
 	gonum.org/v1/gonum v0.15.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240520151616-dc85e6b867a5 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20240610135401-a8a62080eff3 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20240617180043-68d350f18fd4 // indirect
 	google.golang.org/grpc v1.64.0 // indirect
 	google.golang.org/protobuf v1.34.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect

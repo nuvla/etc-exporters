@@ -105,8 +105,12 @@ github.com/nuvla/api-client-go v0.7.7-0.20240614100931-3865f491f55a h1:GnkIJ7FjU
 github.com/nuvla/api-client-go v0.7.7-0.20240614100931-3865f491f55a/go.mod h1:AksHmBZPLbbLZm7B4ZW/rRxUF+aAxaOozXFSsaLtGnI=
 github.com/nuvla/otc-exporters/nuvla-api-exporter v0.0.0-20240617114246-3c8aab8c20aa h1:aAXtwVxSE4UcSFkBCp6dhqh38x3oEUPrVz4rYmgCVAA=
 github.com/nuvla/otc-exporters/nuvla-api-exporter v0.0.0-20240617114246-3c8aab8c20aa/go.mod h1:SIvxl541Ch7yo6y5We6BMrKRN42CArjMt0sJ+w0jKQE=
+github.com/nuvla/otc-exporters/nuvla-api-exporter v0.0.0-20240617173048-e93878f24c2b h1:5ZHgiK1Ok8xI4WTXyPsQtBN2otL3/dWPLinQJ0flPEg=
+github.com/nuvla/otc-exporters/nuvla-api-exporter v0.0.0-20240617173048-e93878f24c2b/go.mod h1:SIvxl541Ch7yo6y5We6BMrKRN42CArjMt0sJ+w0jKQE=
 github.com/nuvla/otc-exporters/nuvla-elasticsearch-exporter v0.0.0-20240617113549-da8ff9a8e96a h1:2De4Xj/GRWelfg9S6Q8OhIwT/PtowCUFuhyV0x+iaLs=
 github.com/nuvla/otc-exporters/nuvla-elasticsearch-exporter v0.0.0-20240617113549-da8ff9a8e96a/go.mod h1:FkrogM3TqBUGAEOD8bzMoFFB/D14FhiFHEBwy9xXrNw=
+github.com/nuvla/otc-exporters/nuvla-elasticsearch-exporter v0.0.0-20240617173048-e93878f24c2b h1:ZUnuJJX9zNrZDSQAZLLJZuVu2Omhr/5hmynK//7vmtM=
+github.com/nuvla/otc-exporters/nuvla-elasticsearch-exporter v0.0.0-20240617173048-e93878f24c2b/go.mod h1:FkrogM3TqBUGAEOD8bzMoFFB/D14FhiFHEBwy9xXrNw=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/power-devops/perfstat v0.0.0-20210106213030-5aafc221ea8c h1:ncq/mPwQF4JjgDlrVEn3C11VoGHZN7m8qihwgMEtzYw=
@@ -348,6 +352,8 @@ google.golang.org/genproto/googleapis/api v0.0.0-20240520151616-dc85e6b867a5 h1:
 google.golang.org/genproto/googleapis/api v0.0.0-20240520151616-dc85e6b867a5/go.mod h1:RGnPtTG7r4i8sPlNyDeikXF99hMM+hN6QMm4ooG9g2g=
 google.golang.org/genproto/googleapis/rpc v0.0.0-20240610135401-a8a62080eff3 h1:9Xyg6I9IWQZhRVfCWjKK+l6kI0jHcPesVlMnT//aHNo=
 google.golang.org/genproto/googleapis/rpc v0.0.0-20240610135401-a8a62080eff3/go.mod h1:EfXuqaE1J41VCDicxHzUDm+8rk+7ZdXzHV0IhO/I6s0=
+google.golang.org/genproto/googleapis/rpc v0.0.0-20240617180043-68d350f18fd4 h1:Di6ANFilr+S60a4S61ZM00vLdw0IrQOSMS2/6mrnOU0=
+google.golang.org/genproto/googleapis/rpc v0.0.0-20240617180043-68d350f18fd4/go.mod h1:Ue6ibwXGpU+dqIcODieyLOcgj7z8+IcskoNIgZxtrFY=
 google.golang.org/grpc v1.19.0/go.mod h1:mqu4LbDTu4XGKhr4mRzUsmM4RtVoemTSY81AxZiDr8c=
 google.golang.org/grpc v1.23.0/go.mod h1:Y5yQAOtifL1yxbo5wqy6BxZv8vAUGQwXBOALyacEbxg=
 google.golang.org/grpc v1.25.1/go.mod h1:c3i+UQWmh7LiEpx4sFZnkU36qjEYZ0imhYfXVyQciAY=
